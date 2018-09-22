@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cross-clear": "^1.0.0",
     "keypress": "^0.2.1",
     "pigpio": "^1.1.2"
   }
