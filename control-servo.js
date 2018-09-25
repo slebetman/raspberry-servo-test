@@ -11,7 +11,7 @@ var DRAW = {
 	LINE:      '\u2500',
 	RIGHT_END: '\u2524'
 }
-var CENTER = 1560;
+var CENTER = 1380;
 var SERVO_TRAVEL = 800;
 var offset = 0;
 var FULL_TRAVEL = 28;
