@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="cam.css">
+	</head>
+	<body>
+		<div id="slider-container">
+			<img id="livecam" src="" width="640" height="480"><br>
+			<input
+				id="slider" 
+				type="range" 
+				min="-100" 
+				max="100" 
+				value="0" 
+				step="0.1"
+			>
+			<div id="live">0</div>
+		</div>
+		<script>
+			document.getElementById('livecam').src = "http://" + window.location.hostname + ":8866/"
+		</script>		
+		<script src="slider-control.js"></script>
+	</body>
+</html>

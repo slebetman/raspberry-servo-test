@@ -8,7 +8,7 @@ function get (el) {
 var lastval;
 
 setInterval(function(){
-	var pos = get('slider').value;
+	var pos = get('slider').value * -1;
 	
 	if (lastval !== pos) {
 		lastval = pos;

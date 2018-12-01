@@ -16,17 +16,25 @@ var SERVO_TRAVEL = 800;
 var offset = 0;
 var FULL_TRAVEL = 28;
 
-function drawUI (position) {
+function ESC (str) {
+	return '\033' + str;
+}
+
+function ESC_ (str) {
+	return ESC('[' + str);
+}
+
+function GOTO (row, col) {
+	return ESC_(row + ';' + col + 'H');
+}
+
+function drawSlider (position) {
 	var l = FULL_TRAVEL - position;
 	var r = FULL_TRAVEL + position;
-	clearScreen();
-	console.log();
-	console.log(' Use arrow keys to move servo. Use <shift> to speed up');
-	console.log(' Press space to center servo.');
-	console.log(' Type "q" to quit');
-	console.log();
+
+	process.stdout.write(GOTO(6,2));
 	console.log(
-	    ' ' +
+		' ' +	
 		DRAW.LEFT_END + 
 		DRAW.LINE.repeat(l) + 
 		DRAW.ARROW + 
@@ -34,6 +42,15 @@ function drawUI (position) {
 		DRAW.RIGHT_END
 	);
 	console.log();
+}
+
+function drawUI (position) {
+	clearScreen();
+	console.log(ESC_('?25l'));
+	console.log(' Use arrow keys to move servo. Use <shift> to speed up');
+	console.log(' Press space to center servo.');
+	console.log(' Type "q" to quit');
+	drawSlider(position);
 }
 
 function setServo (position) {
@@ -51,9 +68,13 @@ process.stdin.resume();
 process.stdin.on('keypress', (str, key) => {
 	switch (key.name) {
 		case 'c':
-			if (key.ctrl) process.exit();
+			if (key.ctrl) {
+				console.log(ESC_('?25h'));
+				process.exit();
+			}
 			break;
 		case 'q':
+			console.log(ESC_('?25h'));
 			process.exit();
 			break;
 		case 'left':
@@ -77,6 +98,6 @@ process.stdin.on('keypress', (str, key) => {
 		case 'space':
 			offset = 0;
 	}
-	drawUI(offset);
+	drawSlider(offset);
 	setServo(offset);
 });

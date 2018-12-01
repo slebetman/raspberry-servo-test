@@ -35,7 +35,7 @@ app.get('/control', (req,res) => {
 
 app.use(express.static('resources'));
 
-app.listen(8080, () => {
+app.listen(8877, () => {
 	setServo(0);
-	console.log('server started on port 8080');
+	console.log('server started on port 8877');
 });
