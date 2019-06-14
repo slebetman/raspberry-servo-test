@@ -1,3 +1,7 @@
+html {
+	font-family: sans-serif;
+}
+
 #slider {
 	height: 576px;
 	width: 20px;
@@ -16,4 +20,11 @@
 
 #settings {
 	white-space: pre;	
+}
+
+#settings,
+#update,
+#defaults {
+	margin: 20px;
+	margin-bottom: 80px;
 }

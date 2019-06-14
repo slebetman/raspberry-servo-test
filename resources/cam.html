@@ -19,6 +19,9 @@
 				<input type="text" id="val">
 				<button id="update-btn">Update</button>
 			</div>
+			<div id="defaults">
+				<button id="defaults-btn">Reset Settings"</button>
+			</div>
 		</div>
 		<div id="slider-container">
 			<img id="livecam" src="" width="768" height="576">
@@ -56,10 +59,12 @@
 				let value = get('val').value;
 				
 				fetch(host + ':8877/cam/set?setting=' + setting + '&value=' + value)
-					.then(() => {
-						getSettings();
-						get('val').value = '';
-					});
+					.then(getSettings);
+			}
+			
+			get('defaults-btn').onclick = function () {
+				fetch(host + ':8877/cam/defaults')
+					.then(getSettings);
 			}
 		</script>		
 		<script src="slider-control.js"></script>
