@@ -7,14 +7,18 @@ var path = require('path');
 var express = require('express');
 var app = express();
 
-var CENTER = 1380;
-var SERVO_TRAVEL = 800;
+var CENTER = 1450; // 1380;
+var SERVO_DOWN_TRAVEL = 485; // 800
+var SERVO_UP_TRAVEL = 800;
 var FULL_TRAVEL = 100;
 
 var servo = new Gpio(18,{mode: Gpio.OUTPUT});
+// var mjpegServer = net.connect('/tmp/mjpegstream5');
 
 function setServo (position) {
-	var travel = Math.round((position/FULL_TRAVEL) * SERVO_TRAVEL);
+	var servoTravel = position > 0 ? SERVO_DOWN_TRAVEL : SERVO_UP_TRAVEL;
+
+	var travel = Math.round((position/FULL_TRAVEL) * servoTravel);
 	servo.servoWrite(CENTER+travel);
 }
 
