@@ -22,6 +22,30 @@ function setServo (position) {
 	servo.servoWrite(CENTER+travel);
 }
 
+function cam (command, settings) {
+	let packet = { cmd: command, settings };
+	var mjpegServer = net.connect('/tmp/mjpegstream5');
+	
+	return new Promise((ok,fail) => {
+		switch (command) {
+			case 'get':
+				mjpegServer.on('data',json => {
+					ok(json);
+					mjpegServer.destroy();
+				});
+				mjpegServer.on('error',err => {
+					console.error(err);
+					fail(err);
+					mjpegServer.destroy();
+				});
+				mjpegServer.write(JSON.stringify(packet));
+				break;
+			default:
+				mjpegServer.write(JSON.stringify(packet), ok);
+		}
+	});
+}
+
 app.get('/', (req,res) => {
 	res.sendFile(__dirname + '/resources/index.html');
 });
@@ -35,6 +59,12 @@ app.get('/control', (req,res) => {
 	catch (err) {
 		res.send(err);
 	}
+});
+
+app.get('/cam/settings', (req,res) => {
+	cam('get')
+		.then(json => res.send(json))
+		.catch(err => res.send(err));
 });
 
 app.use(express.static('resources'));

@@ -9,3 +9,11 @@
 	text-align: center;
 	margin-top: 1em;
 }
+
+#settings-container {
+	float: left;
+}
+
+#settings {
+	white-space: pre;	
+}

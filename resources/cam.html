@@ -3,6 +3,10 @@
 		<link rel="stylesheet" href="cam.css">
 	</head>
 	<body>
+		<div id="settings-container">
+			Settings:
+			<div id="settings"></div>
+		</div>
 		<div id="slider-container">
 			<img id="livecam" src="" width="768" height="576">
 			<input
@@ -17,7 +21,17 @@
 			<div id="live">0</div>
 		</div>
 		<script>
-			document.getElementById('livecam').src = "http://" + window.location.hostname + ":8866/"
+			let host = "http://" + window.location.hostname;
+			let mjpeg = document.getElementById('livecam');
+			let settings = document.getElementById('settings');
+			
+			mjpeg.src = host  + ":8866/";
+			
+			fetch(host + ":8877/cam/settings")
+				.then(res => res.json())
+				.then(json => {
+					settings.innerHTML = JSON.stringify(json, null, 4); 
+				});
 		</script>		
 		<script src="slider-control.js"></script>
 	</body>
