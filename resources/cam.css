@@ -19,12 +19,13 @@ html {
 }
 
 #settings {
-	white-space: pre;	
+	white-space: pre;
+	margin-bottom: 50px;
 }
 
 #settings,
 #update,
 #defaults {
-	margin: 20px;
-	margin-bottom: 80px;
+	margin: 10px;
 }
+
