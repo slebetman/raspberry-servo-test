@@ -2,18 +2,19 @@
 
 "use strict"
 
-var Gpio = require('pigpio').Gpio;
-var path = require('path');
-var express = require('express');
-var app = express();
+const Gpio = require('pigpio').Gpio;
+const path = require('path');
+const express = require('express');
+const net = require('net');
 
-var CENTER = 1450; // 1380;
-var SERVO_DOWN_TRAVEL = 485; // 800
-var SERVO_UP_TRAVEL = 800;
-var FULL_TRAVEL = 100;
+const app = express();
 
-var servo = new Gpio(18,{mode: Gpio.OUTPUT});
-// var mjpegServer = net.connect('/tmp/mjpegstream5');
+const CENTER = 1450; // 1380;
+const SERVO_DOWN_TRAVEL = 485; // 800
+const SERVO_UP_TRAVEL = 800;
+const FULL_TRAVEL = 100;
+
+const servo = new Gpio(18,{mode: Gpio.OUTPUT});
 
 function setServo (position) {
 	var servoTravel = position > 0 ? SERVO_DOWN_TRAVEL : SERVO_UP_TRAVEL;
@@ -24,7 +25,7 @@ function setServo (position) {
 
 function cam (command, settings) {
 	let packet = { cmd: command, settings };
-	var mjpegServer = net.connect('/tmp/mjpegstream5');
+	const mjpegServer = net.connect('/tmp/mjpegstream5');
 	
 	return new Promise((ok,fail) => {
 		switch (command) {
