@@ -42,17 +42,21 @@
 			
 			get('livecam').src = host  + ":8866/";
 			
-			fetch(host + ':8877/cam/settings')
-				.then(res => res.json())
-				.then(json => {
-					get('settings').innerHTML = JSON.stringify(json, null, 4); 
-				});
+			function getSettings () {
+				fetch(host + ':8877/cam/settings')
+					.then(res => res.json())
+					.then(json => {
+						get('settings').innerHTML = JSON.stringify(json, null, 4); 
+					});
+			}
+			getSettings();
 				
 			get('update-btn').onclick = function () {
 				let setting = get('key').value;
 				let value = get('val').value;
 				
-				fetch(host + ':8877/cam/set?setting=' + setting + '&value=' + value);
+				fetch(host + ':8877/cam/set?setting=' + setting + '&value=' + value)
+					.then(getSettings);
 			}
 		</script>		
 		<script src="slider-control.js"></script>
