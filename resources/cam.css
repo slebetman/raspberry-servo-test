@@ -18,14 +18,14 @@ html {
 	float: left;
 }
 
-#settings {
-	white-space: pre;
-	margin-bottom: 50px;
-}
-
 #settings,
 #update,
 #defaults {
-	margin: 10px;
+	margin: 15px;
+}
+
+#settings {
+	white-space: pre;
+	margin-bottom: 50px;
 }
 
