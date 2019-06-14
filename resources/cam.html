@@ -17,8 +17,8 @@
 				<input type="text" id="val">
 				<button id="update-btn">Update</button>
 			</div>
-			Update resolution:
 			<div id="resolution">
+				Resolution:
 				<select id="rez">
 					<option value="640x480">640x480</option>
 					<option value="384x288">384x288</option>
@@ -59,7 +59,9 @@
 				fetch(host + ':8877/cam/settings')
 					.then(res => res.json())
 					.then(json => {
-						get('settings').innerHTML = JSON.stringify(json, null, 4); 
+						let rez = json.width + 'x' + json.height;
+						get('settings').innerHTML = JSON.stringify(json, null, 4);
+						get('rez').value = rez; 
 					});
 			}
 			getSettings();
