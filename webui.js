@@ -68,6 +68,25 @@ app.get('/cam/settings', (req,res) => {
 		.catch(err => res.send(err));
 });
 
+app.get('/cam/set', (req,res) => {
+	var key = req.query.setting;
+	var val = req.query.value;
+	
+	var settings = {};
+	
+	settings[key] = val;
+	
+	cam('set', settings)
+		.then(() => res.send('OK'))
+		.catch(err => res.send(err));
+});
+
+app.get('/cam/defaults', (req,res) => {
+	cam('defaults')
+		.then(() => res.send('OK'))
+		.catch(err => res.send(err));
+});
+
 app.use(express.static('resources'));
 
 app.listen(8877, () => {
