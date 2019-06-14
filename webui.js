@@ -81,6 +81,27 @@ app.get('/cam/set', (req,res) => {
 		.catch(err => res.send(err));
 });
 
+app.get('/cam/resolution', (req,res) => {
+	var resolution = req.query.resolution;
+	
+	const supportedRez = {
+		'640x480' : { width: '640', height: '480' },
+		'384x288' : { width: '384', height: '288' },
+		'320x240' : { width: '320', height: '240' },
+		'256x192' : { width: '256', height: '192' },
+		'160x120' : { width: '160', height: '120' },
+		'128x96'  : { width: '128', height: '96'  },
+	}
+	
+	var settings = supportedRez[resolution];
+	
+	if (settings !== undefined) {
+		cam('set', settings)
+			.then(() => res.send('OK'))
+			.catch(err => res.send(err));
+	}
+});
+
 app.get('/cam/defaults', (req,res) => {
 	cam('defaults')
 		.then(() => res.send('OK'))

@@ -19,6 +19,7 @@ html {
 }
 
 #settings,
+#resolution,
 #update,
 #defaults {
 	margin: 15px;
