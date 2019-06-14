@@ -56,7 +56,10 @@
 				let value = get('val').value;
 				
 				fetch(host + ':8877/cam/set?setting=' + setting + '&value=' + value)
-					.then(getSettings);
+					.then(() => {
+						getSettings();
+						get('val').value = '';
+					});
 			}
 		</script>		
 		<script src="slider-control.js"></script>
